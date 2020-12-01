@@ -1,0 +1,367 @@
+<html lang="en">
+
+<head>
+    <title>Minutes</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="/stylesheets/main.css">
+</head>
+
+<body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div class="loader" id="main-loader">
+        <div class="loading-anim"></div>
+    </div>
+    <div id="main-app" class="main-app" style="display: none;">
+        <ul class="nav nav-tabs mb-3">
+            <li class="nav-item">
+                <div class="nav-link active" id="timer-tab-link">Timer</div>
+            </li>
+            <li class="nav-item">
+                <div class="nav-link" id="reports-tab-link">Reports</div>
+            </li>
+        </ul>
+        <div class="tab-panel" id="loading-tab">
+            <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
+                <div class="loader" id="tab-loader">
+                    <div class="loading-anim"></div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-panel" id="timer-tab">
+            <div class="row justify-content-center mt-3 align-items-center select-bar" id="timer-running-bar">
+                <div class="col-5 pl-0 d-flex justify-content-between align-items-center">
+                    <label class="my-0 mr-2" for="board-select">Board</label>
+                    <div class="flex-fill dropdown">
+                        <button class="btn dropdown-btn dropdown-toggle monday-input-with-border" type="button"
+                            id="board-select" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false"></button>
+                        <div class="dropdown-menu monday-dropdown-menu-full-width" name="board" id="board-options">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-7 pr-0 d-flex justify-content-between align-items-center">
+                    <label class="my-0 mr-2" for="item-select">Item</label>
+                    <div class="flex-fill mr-4 dropdown">
+                        <button class="btn dropdown-btn dropdown-toggle monday-input-with-border" type="button"
+                            id="item-select" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                        <div class="dropdown-menu monday-dropdown-menu-full-width" name="item" id="item-options"></div>
+                    </div>
+                    <div class="play-btn">
+                        <button role="play" class="button play" id="timer-btn-play"><i class="fas fa-play"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center mt-3 align-items-center select-bar" id="timer-not-running-bar">
+                <div class="col-10 pl-0">
+                    <span id="running-item-name"></span>
+                </div>
+                <div class="col-2 d-flex justify-content-end align-items-center">
+                    <div class="mr-5">
+                        <div id="running-item-time"></div>
+                    </div>
+                    <div class="play-btn">
+                        <button role="pause" class="button pause" id="timer-btn-pause"><i
+                                class="fas fa-pause"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center mt-3 align-items-center select-bar" id="timer-hour-mode-bar">
+
+            </div>
+            <div class="row justify-content-center mt-3 align-items-center app-display" id="timer-display">
+            </div>
+            <div class="row justify-content-center mt-3 align-items-center app-display" id="timer-blank-display">
+                <div class="d-flex flex-column justify-content-center align-items-center">';
+                    <img src="/imgs/no_data.jpg" style="width: 250px;">
+                    <h4> Looks like you don't have any time time entries</h4>
+                    <h5> Start tracking you time with the bar above</h5>
+                </div>
+            </div>
+        </div>
+        <div class="tab-panel" id="reports-tab">
+            <div class="row justify-content-start my-3 select-bar" id="reports-select-bar">
+                <div class="col-11 pl-0 d-flex justify-content-start align-items-center">
+                    <div class="dropdown mr-1">
+                        <button
+                            class="btn dropdown-btn dropdown-toggle d-flex align-items-center monday-input-without-border"
+                            type="button" id="user-filter-select" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false"><img src="/imgs/Icons_Misc_Person_circle.svg" class="icon"
+                                alt="User icon">Users</button>
+                        <div class="dropdown-menu monday-dropdown-menu-width-500" name="users" id="user-filter-options">
+                            <form>
+                                <div class="form-group has-search" id="user-filter-list">
+                                    <span class="fa fa-search form-control-feedback"></span>
+                                    <input type="text" class="search form-control" placeholder="Find user">
+                                    <button type="button" class="sort filter-option-btn" data-sort="name">Sort by
+                                        name</button>
+                                    <button type="button" class="filter-option-btn" id="select-all-users">Select
+                                        All</button>
+                                    <ul class="list dropdown-filter-list overflow-auto" style="max-height: 300px;"></ul>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="dropdown mx-1">
+                        <button
+                            class="btn dropdown-btn dropdown-toggle d-flex align-items-center monday-input-without-border"
+                            type="button" id="board-filter-select" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false"><img src="/imgs/Icons_Misc_Board.svg" class="icon"
+                                alt="Board icon">Boards</button>
+                        <div class="dropdown-menu monday-dropdown-menu-width-500" name="boards"
+                            id="board-filter-options">
+                            <form>
+                                <div class="form-group has-search" id="board-filter-list">
+                                    <span class="fa fa-search form-control-feedback"></span>
+                                    <input type="text" class="search form-control" placeholder="Find board">
+                                    <button type="button" class="sort filter-option-btn" data-sort="name">Sort by
+                                        name</button>
+                                    <button type="button" class="filter-option-btn" id="select-all-boards">Select
+                                        All</button>
+                                    <ul class="list dropdown-filter-list overflow-auto" style="max-height: 300px;"></ul>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="dropdown mx-1">
+                        <button
+                            class="btn dropdown-btn dropdown-toggle d-flex align-items-center monday-input-without-border"
+                            type="button" id="group-filter-select" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false"><img src="/imgs/Icons_Misc_group.svg" class="icon"
+                                alt="Group icon">Groups</button>
+                        <div class="dropdown-menu monday-dropdown-menu-width-500" name="groups"
+                            id="group-filter-options">
+                            <form>
+                                <div class="form-group has-search" id="group-filter-list">
+                                    <span class="fa fa-search form-control-feedback"></span>
+                                    <input type="text" class="search form-control" placeholder="Find group">
+                                    <button type="button" class="sort filter-option-btn" data-sort="name">Sort by
+                                        name</button>
+                                    <button type="button" class="sort filter-option-btn" data-sort="boardName">Sort by
+                                        board</button>
+                                    <button type="button" class="filter-option-btn" id="select-all-groups">Select
+                                        All</button>
+                                    <ul class="list dropdown-filter-list overflow-auto" style="max-height: 300px;"></ul>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="dropdown mx-1">
+                        <button
+                            class="btn dropdown-btn dropdown-toggle d-flex align-items-center monday-input-without-border"
+                            type="button" id="item-filter-select" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false"><img src="/imgs/Icons_Misc_item.svg" class="icon"
+                                alt="Item icon">Items</button>
+                        <div class="dropdown-menu monday-dropdown-menu-width-500" name="items" id="item-filter-options">
+                            <form>
+                                <div class="form-group has-search" id="item-filter-list">
+                                    <span class="fa fa-search form-control-feedback"></span>
+                                    <input type="text" class="search form-control" placeholder="Find item">
+                                    <button type="button" class="sort filter-option-btn" data-sort="name">Sort by
+                                        name</button>
+                                    <button type="button" class="sort filter-option-btn" data-sort="boardName">Sort by
+                                        board</button>
+                                    <button type="button" class="sort filter-option-btn" data-sort="groupName">Sort by
+                                        group</button>
+                                    <button type="button" class="filter-option-btn" id="select-all-items">Select
+                                        All</button>
+                                    <ul class="list dropdown-filter-list overflow-auto" style="max-height: 300px;"></ul>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="report-range-select mx-1">
+                        <div class="btn dropdown-btn dropdown-toggle d-flex align-items-center monday-input-without-border"
+                            id="date-range-filter-select">
+                            <img src="/imgs/Icons_Misc_Calendar.svg" class="icon" alt="Item icon" id="calendar-icon">
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-1 pr-0 d-flex justify-content-end align-items-center">
+                    <div class="btn-group dropleft">
+                        <button type="button" class="btn dropdown-btn dropdown-toggle monday-input-without-border"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="/imgs/Icons_Misc_Import.svg" class="icon" alt="Save icon">
+                            <span>Save</span>
+                        </button>
+                        <div class="dropdown-menu monday-dropdown-menu-auto-width">
+                            <a class="dropdown-item monday-dropdown-menu-item" id="save-time-entires">Export Time
+                                Entries</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center my-3 app-display" id="reports-display">
+                <div class="row justify-content-center">
+                    <div class="col-2 p-3 chart">
+                        <canvas id="pie-chart"></canvas>
+                    </div>
+                    <div class="col-10 chart">
+                        <canvas id="bar-chart"></canvas>
+                    </div>
+                </div>
+                <div class="row px-0 my-3">
+                    <div class="col-6 pl-0 d-flex justify-content-start align-items-center">
+                        <div>
+                            <button class="btn dropdown-btn mr-2 dropdown-toggle monday-input-with-border" type="button"
+                                id="data-source-select" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false" value="Boards">Plot Boards</button>
+                            <div class="dropdown-menu monday-dropdown-menu-auto-width" name="data-source"
+                                id="data-source-options">
+                                <button
+                                    class="dropdown-item monday-dropdown-menu-item active dropdown-data-source-option">Users</button>
+                                <button
+                                    class="dropdown-item monday-dropdown-menu-item dropdown-data-source-option">Boards</button>
+                                <button
+                                    class="dropdown-item monday-dropdown-menu-item dropdown-data-source-option">Groups</button>
+                                <button
+                                    class="dropdown-item monday-dropdown-menu-item dropdown-data-source-option">Items</button>
+                            </div>
+                        </div>
+                        <div>
+                            <button class="btn dropdown-btn mx-2 dropdown-toggle monday-input-with-border" type="button"
+                                id="data-group-select" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                value="Item">by Item</button>
+                            <div class="dropdown-menu monday-dropdown-menu-auto-width" name="data-group"
+                                id="data-group-options">
+                                <button
+                                    class="dropdown-item monday-dropdown-menu-item dropdown-data-group-option">User</button>
+                                <button
+                                    class="dropdown-item monday-dropdown-menu-item dropdown-data-group-option">Board</button>
+                                <button
+                                    class="dropdown-item monday-dropdown-menu-item dropdown-data-group-option">Group</button>
+                                <button
+                                    class="dropdown-item monday-dropdown-menu-item active dropdown-data-group-option">Item</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 pl-0 d-flex justify-content-end align-items-center">
+                        <div class="py-2 time-entry-date-time" id="total-chart-time">00h 00min</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 px-0" id="data-chart"></div>
+                    <div class="col-12 px-0" id="no-data-chart">
+                        <div class="d-flex flex-column justify-content-center align-items-center">';
+                            <img src="/imgs/no_data.jpg" style="width: 150px;">
+                            <h4> Looks like there is no data for this filter</h4>
+                            <h5> Try another filter or start logging more time</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modal-delete-time-entry" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content monday-modal-content">
+                    <div class="modal-header monday-modal-header">
+                        <h5 class="modal-title">Delete Time Entry</h5>
+                    </div>
+                    <div class="modal-body monday-modal-body">
+                        Are you sure you want to delete this time entry?
+                    </div>
+                    <div class="modal-footer monday-modal-footer">
+                        <button type="button" class="btn monday-tertiary-btn" data-dismiss="modal"
+                            aria-label="Close">Cancel</button>
+                        <button type="button" class="btn monday-primary-btn" id="modal-delete-time-entry-btn"
+                            data-dismiss="modal">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modal-edit-time-entry" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content monday-modal-content">
+                    <div class="modal-header monday-modal-header">
+                        <h5 class="modal-title">Edit Time Entry</h5>
+                    </div>
+                    <div class="modal-body monday-modal-body">
+                        <div class="row justify-content-center mt-3 align-items-center active">
+                            <div class="col-12 px-0 my-2">
+                                <label for="time-entry-edit-board-select">Board</label>
+                                <button class="btn dropdown-btn monday-input-with-border dropdown-toggle" type="button"
+                                    id="time-entry-edit-board-select" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false"></button>
+                                <div class="dropdown-menu monday-dropdown-menu-full-width" name="time-entry-board"
+                                    id="time-entry-edit-board-options">
+                                </div>
+                            </div>
+                            <div class="col-12 px-0 my-2">
+                                <label for="time-entry-edit-item-select">Item</label>
+                                <button class="btn dropdown-btn monday-input-with-border dropdown-toggle" type="button"
+                                    id="time-entry-edit-item-select" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false"></button>
+                                <div class="dropdown-menu monday-dropdown-menu-full-width" name="time-entry-item"
+                                    id="time-entry-edit-item-options">
+                                </div>
+                            </div>
+                            <div class="col-12 px-0 my-2">
+                                <label for="time-entry-duration-select">Duration</label>
+                                <div class="d-flex justify-content-between align-items-center"
+                                    id="time-entry-duration-select">
+                                    <input class="form-control monday-input-with-border" id="duration-edit">
+                                    <div class="form outline mx-2">
+                                        <input type="time" id="start-time-edit"
+                                            class="form-control monday-input-with-border" placeholder="Select time">
+                                    </div>
+                                    <i class="fas fa-arrow-right"></i>
+                                    <div class="form outline ml-2">
+                                        <input type="time" id="end-time-edit"
+                                            class="form-control monday-input-with-border" placeholder="Select time">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 px-0">
+                                <div class="btn dropdown-btn dropdown-toggle d-flex align-items-center monday-input-with-border"
+                                    id="start-date-edit">
+                                    <img src="/imgs/Icons_Misc_Calendar.svg" class="icon" alt="Item icon"
+                                        id="calendar-icon">
+                                    <span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer monday-modal-footer">
+                        <button type="button" class="btn monday-tertiary-btn" data-dismiss="modal"
+                            aria-label="Close">Cancel</button>
+                        <button type="button" class="btn monday-primary-btn" id="modal-edit-time-entry-btn"
+                            data-dismiss="modal">Edit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+        integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"
+        integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf"
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script> -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"
+        integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw=="
+        crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/2.3.0/list.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/monday-sdk-js/dist/main.js"></script>
+    <script src="/scripts/DurationPickerMaker.js"></script>
+    <script src="/scripts/FormattedDuration.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.20/lodash.min.js"></script>
+    <script src="/scripts/mondayQueries.js"></script>
+    <script src="/scripts/timeEntryQueries.js"></script>
+    <script src="/scripts/reportsView.js"></script>
+    <script src="/scripts/timerView.js"></script>
+    <script src="/scripts/htmlGenerators.js"></script>
+    <script src="/scripts/main.js"></script>
+</body>
+
+</html>

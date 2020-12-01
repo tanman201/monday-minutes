@@ -1,0 +1,31 @@
+{
+  "name": "mondaytimeapp",
+  "version": "0.0.1",
+  "description": "Expand the timing utilities of Monday.com",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+	"start": "node app.js"
+  },
+  "author": "Tanner Smith",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.0",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "lodash.clonedeep": "^4.5.0",
+    "method-override": "^3.0.0",
+    "monday-sdk-js": "^0.1.1",
+    "mongoose": "^5.10.14",
+    "passport": "^0.4.1",
+    "passport-local-mongoose": "^6.0.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0"
+  }
+}

@@ -1,0 +1,623 @@
+:root {
+    --button-height: 0.75rem;
+    --button-color: green;
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    color: #323338;
+}
+
+/*** Main app and show/hide styling ***/
+
+#main-app {
+    width: 100%;
+    height: 100%;
+    padding: 12px 24px 0;
+    margin: 0;
+}
+
+#main-app .row {
+    margin-left: 0px;
+    margin-right: 0px;
+    width: 100%;
+}
+
+#main-app .tab-panel.active {
+    display: block;
+}
+
+#main-app .tab-panel {
+    display: none;
+}
+
+#main-app .select-bar.active {
+    display: flex;
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 16px;
+    margin-bottom: 25px;
+}
+
+#main-app .select-bar {
+    display: none;
+}
+
+/*** Loading Animation ***/
+
+.loading-anim {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    border: 5px solid #E6E9EF;
+    border-left-color: #0085FF;
+    animation: rotate 600ms infinite linear;
+}
+
+@keyframes rotate {
+    to {
+        transform: rotate(1turn)
+    }
+}
+
+/*** Nav Bar ***/
+
+#main-app .nav-tabs .nav-link.active {
+    color: #009aff;
+    border-bottom: 2px solid #009aff;
+    border-color: #fff #fff #009aff #fff;
+}
+
+#main-app .nav-tabs .nav-link {
+    padding: 6px 18px;
+    font-size: 1rem;
+    font-weight: 400;
+    height: 40px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    color: #323338;
+    border-top: 0px solid transparent;
+    border-left: 0px solid transparent;
+    border-right: 0px solid transparent;
+}
+
+#main-app .nav-tabs .nav-link:hover {
+    border-top: 0px solid transparent;
+    border-left: 0px solid transparent;
+    border-right: 0px solid transparent;
+}
+
+/*** Play/Pause Button ***/
+
+#main-app .button.play {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    border-width: 0;
+    border-color: transparent transparent transparent transparent;
+    background-color: #ffff;
+    font-size: 35px;
+    color: #0085FF;
+}
+
+#main-app .button.play:hover {
+    color: #0071D9;
+}
+
+.button.play:focus {
+    outline: 0px solid;
+}
+
+#main-app .button.pause {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    border-width: 0;
+    border-color: transparent transparent transparent transparent;
+    background-color: #ffff;
+    font-size: 35px;
+    color: #0085FF;
+}
+
+#main-app .button.pause:hover {
+    color: #0071D9;
+}
+
+#main-app .button.pause:focus {
+    outline: 0px solid;
+}
+
+/*** Running Bar ***/
+
+#main-app #running-item-name, #main-app #running-item-time {
+    font-size: 20px;
+}
+
+/*** Time Entries ***/
+
+#main-app .time-entry-day {
+    margin: 0 0 25px 0;
+}
+
+#main-app .time-entry-day-header .time-entry-date-str, #main-app .time-entry-day-header .time-entry-date-time {
+    font-size: 18px;
+}
+
+#main-app .time-entry-day-header.collapsed {
+    background-color: #f5f6f8;
+    box-shadow: 0.0px 4.0px 8.0px 0px rgba(0, 0, 0, 0.2);
+    padding: 8px 8px;
+    transition: all linear 0.25s;
+}
+
+#main-app .time-entry-day-header {
+    cursor: pointer;
+    background-color: #fff;
+    padding: 0 0;
+    border: 0px;
+    width: 100%;
+    transition: all linear 0.25s;
+}
+
+#main-app .time-entry-day-header:focus {
+    outline: 0px;
+}
+
+#main-app .time-entry-day-body {
+    width: 100%
+}
+
+#main-app .time-entry-group-expand-btn {
+    padding: 0px;
+    margin-bottom: 0px;
+    border-left: 0px solid;
+    border-right: 0px solid;
+    border-top: 0px solid;
+    border-bottom: 0px solid;
+    min-width: 120px;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: relative;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+#main-app .time-entry-group-expand-btn:focus {
+    outline: 0px;
+}
+
+#main-app .time-entry-group {
+    font-weight: 400;
+    font-size: 0.825rem;
+    line-height: 1.0rem;
+    padding: 0px;
+    margin-bottom: 2px;
+    border-left: 0px solid;
+    border-right: 0px solid;
+    border-top: 0px solid;
+    border-bottom: 0px solid;
+}
+
+#main-app .time-entry-group-section {
+    background-color: #f5f6f8;
+    color: #323338;
+    padding: 10px;
+    height: 40px;
+    margin: 1px 1px 1px 1px;
+    box-shadow: 0.0px 1.0px 1.0px 0px rgba(0, 0, 0, 0.1);
+}
+
+#main-app .time-entry-section {
+    background-color: #f0f0f0;
+    color: #323338;
+    padding: 10px;
+    height: 40px;
+    margin: 1px 1px 1px 1px;
+    box-shadow: 0.0px 1.0px 1.0px 0px rgba(0, 0, 0, 0.1);
+}
+
+#main-app .time-entry-group-body {
+    width: 100%
+}
+
+#main-app .time-entry {
+    font-weight: 400;
+    font-size: 0.825rem;
+    line-height: 1.0rem;
+    padding: 0px;
+    margin-bottom: 2px;
+    border-left: 0px solid;
+    border-right: 0px solid;
+    border-top: 0px solid;
+    border-bottom: 0px solid;
+    min-width: 120px;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: relative;
+    background-color: #fff;
+}
+
+#main-app .time-entry-item-name {
+    margin-left: 55px;
+}
+
+#main-app .numberCircle {
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    padding: 3px 0;
+    background-color: transparent;
+    border: 1px solid #666;
+    color: #666;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 400;
+    float: left;
+    margin: 0;
+}
+
+#main-app .time-entry-group-item-name {
+    float: left;
+    padding: 0px;
+    margin-left: 25px;
+}
+
+#main-app .time-entry-group-quick-play {
+    font-size: 16px;
+    color: #0185ff;
+}
+
+#main-app .time-entry-group-quick-play:hover {
+    font-size: 16px;
+    color: #1199e7;
+    cursor: pointer;
+}
+
+#main-app .time-entry-column-headers {
+    margin-bottom: 2px;
+}
+
+#main-app .time-entry-column-header {
+    text-align: center;
+    font-size: 14px;
+    font-weight: 400;
+    color: #323338;
+}
+
+#main-app .time-entry-edit, #main-app .time-entry-delete {
+    font-size: 16px;
+    color: #323338;
+}
+
+#main-app .time-entry-edit:hover, #main-app .time-entry-delete:hover {
+    font-size: 16px;
+    color: #1199e7;
+    cursor: pointer;
+}
+
+/*** Inputs with borders ***/
+
+#main-app .monday-input-with-border {
+    color: #676879;
+    background-color: #fff;
+    border-color: #676879;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#main-app .monday-input-with-border:focus {
+    outline: 0;
+    box-shadow: 0 0 0 0.0rem rgba(0, 123, 255, .25);
+}
+
+/*** Inputs without borders ***/
+
+#main-app .monday-input-without-border {
+    border-color: transparent;
+    color: #323338;
+}
+
+#main-app .monday-input-without-border:hover {
+    background-color: #e6e9ef;
+}
+
+#main-app .monday-input-without-border:focus {
+    outline: 0;
+    box-shadow: 0 0 0 0.0rem rgba(0, 123, 255, .25);
+}
+
+#main-app .monday-input-without-border::after, #main-app .monday-input-without-border::before {
+    background-color: transparent;
+    color: transparent;
+    display: none;
+}
+
+#main-app .monday-input-without-border .icon {
+    margin-right: 5px;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+}
+
+#main-app .user-photo-icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+/*** Dropdown menu full width ***/
+
+#main-app .monday-dropdown-menu-full-width {
+    width: 100%;
+    padding: 1rem 1rem 1rem 1rem;
+}
+
+/*** Dropdown auto width ***/
+
+#main-app .monday-dropdown-menu-auto-width {
+    padding: 1rem 1rem 1rem 1rem;
+}
+
+/*** Dropdown 500% width ***/
+
+#main-app .monday-dropdown-menu-width-500 {
+    padding: 1rem 1rem 0 1rem;
+    width: 500%;
+    margin: 0 0 0 0;
+}
+
+#main-app .monday-dropdown-menu-width-500 ul {
+    list-style-type: none;
+    padding: 0 0 0 0;
+    margin-top: 2px;
+    margin-bottom: 1px;
+}
+
+#main-app .monday-dropdown-menu-width-500 li {
+    font-size: 16px;
+    font-weight: 400;
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+/*** Dropdown items ***/
+
+#main-app .monday-dropdown-menu-header {
+    padding: .5rem 0rem
+}
+
+/*** Dropdown items ***/
+
+#main-app .monday-dropdown-menu-item {
+    border-radius: 0.25rem;
+    margin: 0 0 0.1rem 0;
+    padding: 0.25rem 1.0rem;
+    width: 100%;
+}
+
+#main-app .monday-dropdown-menu-item:focus {
+    background-color: #fff;
+    outline: 0;
+    box-shadow: 0 0 0 0.0rem rgba(0, 123, 255, .25);
+}
+
+#main-app .monday-dropdown-menu-item:hover {
+    background-color: #009aff;
+    color: #fff;
+}
+
+#main-app .monday-dropdown-menu-item.active {
+    background-color: #DFF0FF;
+    color: #0085FF;
+}
+
+#main-app .monday-dropdown-menu-item .text {
+    font-size: 16px;
+}
+
+#main-app .monday-dropdown-menu-item .subtext {
+    font-size: 12px;
+    color: #808080;
+}
+
+#main-app .monday-dropdown-menu-item.active:hover .subtext {
+    color: #808080;
+}
+
+#main-app .monday-dropdown-menu-item:hover .subtext {
+    color: #fff;
+}
+
+/*** Search boxes with icon ***/
+
+#main-app .has-search .form-control {
+    padding-left: 2.375rem;
+}
+
+#main-app .has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+}
+
+/*** Search filter buttons ***/
+
+#main-app .filter-option-btn {
+    font-size: 12px;
+    padding: 2px 10px;
+    border-radius: 25px;
+    border: none;
+    color: #2e2e2e;
+    text-decoration: none;
+    background-color: rgba(0, 0, 0, 0.05);
+    margin: 5px 0;
+}
+
+/*** Button Styling buttons ***/
+
+#main-app .filter-option-btn:hover {
+    text-decoration: none;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+#main-app .filter-option-btn:focus {
+    outline: 0px solid #fff;
+}
+
+.monday-primary-btn {
+    color: #fff;
+    background-color: #0085FF;
+    border-color: #0085FF;
+    border-radius: 4px;
+}
+
+.monday-primary-btn:hover {
+    color: #fff;
+    background-color: #0071D9;
+    border-color: #0071D9;
+    border-radius: 4px;
+}
+
+.monday-primary-btn:active {
+    color: #fff;
+    background-color: #0071D9;
+    border-color: #0071D9;
+    border-radius: 4px;
+}
+
+.monday-primary-btn:disabled {
+    color: #676879;
+    background-color: #E6E9EF;
+    border-color: #E6E9EF;
+    border-radius: 4px;
+}
+
+.monday-tertiary-btn {
+    color: #323338;
+    background-color: #fff;
+    border-color: #fff;
+    border-radius: 4px;
+}
+
+.monday-tertiary-btn:hover {
+    color: #323338;
+    background-color: #E6E9EF;
+    border-color: #E6E9EF;
+    border-radius: 4px;
+}
+
+.monday-tertiary-btn:active {
+    color: #0085FF;
+    background-color: #DFF0FF;
+    border-color: #DFF0FF;
+    border-radius: 4px;
+}
+
+.monday-tertiary-btn:disabled {
+    color: #676879;
+    background-color: #fff;
+    border-color: #fff;
+    border-radius: 4px;
+}
+
+/*** Modal buttons ***/
+
+#main-app .monday-modal-header, #main-app .monday-modal-body {
+    border-top: 0px solid #fff;
+    border-bottom: 0px solid #fff;
+    padding: 5px 0px 0px 0px;
+}
+
+#main-app .monday-modal-footer {
+    border-top: 0px solid #fff;
+    border-bottom: 0px solid #fff;
+    padding: 20px 0px 0px 0px;
+}
+
+#main-app .monday-modal-content {
+    border-radius: 16px;
+    padding: 20px 40px;
+}
+
+#modal-edit-time-entry .monday-modal-footer {
+    border-top: 0px solid #fff;
+    border-bottom: 0px solid #fff;
+    padding: 40px 0px 0px 0px;
+}
+
+/********** Graph Styling **********/
+
+#main-app .chart {
+    width: 100%;
+    height: 300px;
+    max-height: 300px;
+    margin: auto;
+}
+
+/********** Date Range Picker Style **********/
+
+.daterangepicker .ranges li {
+    border-radius: 0.25rem;
+}
+
+.daterangepicker .ranges li.active {
+    background-color: #DFF0FF;
+    color: #0085FF;
+}
+
+.daterangepicker .ranges li:hover {
+    background-color: #009aff;
+    color: #fff;
+}
+
+.daterangepicker .calendar-table td.in-range {
+    background-color: #DFF0FF;
+    color: #0085FF;
+}
+
+.daterangepicker .calendar-table td.active.in-range {
+    background-color: #009aff;
+    color: #fff;
+}
+
+.daterangepicker .calendar-table td.active {
+    background-color: #009aff;
+    color: #fff;
+}
+
+.daterangepicker .calendar-table td:hover {
+    background-color: #009aff;
+    color: #fff;
+}
+
+.daterangepicker:before, .daterangepicker:after {
+    border: 0px solid transparent;
+}
+
+/********** No data found styling ***********/
+#timer-blank-display,
+#no-data-chart{
+    color:#d7d7d7;
+}
